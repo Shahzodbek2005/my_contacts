@@ -6,7 +6,7 @@ import 'package:my_contacts/screens/screen_loading.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();  
   Directory dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
   Hive.initFlutter();

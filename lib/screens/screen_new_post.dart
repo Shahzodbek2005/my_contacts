@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ScreenNewPost extends StatelessWidget {
-  XFile? xfile;
-  ScreenNewPost({super.key, required this.xfile});
+  const ScreenNewPost({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +16,11 @@ class ScreenNewPost extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
             child: Container(
               height: 350,
-              decoration:  BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(12)),
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(12)),
               child: ClipRRect(
                 child: Image.file(
-                  File(xfile!.path),
+                  File("xfile!.path"),
                   fit: BoxFit.cover,
                 ),
               ),

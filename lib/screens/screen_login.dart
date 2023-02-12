@@ -26,28 +26,32 @@ class _ScreenLoginState extends State<ScreenLogin> {
     }
     if (status.isGranted) {
       log("yes");
-      List<Contact> contacts = await ContactsService.getContacts();
+      List<Contact> contacts = await ContactsService.getContacts(
+        photoHighResolution: false,
+        androidLocalizedLabels: false,
+        withThumbnails: false,
+        iOSLocalizedLabels: false,
+        orderByGivenName: false,
+      );
 
       for (var elementContacts in contacts) {
-        String? phone;
-        for (var elementPhones in elementContacts.phones!) {
-          phone = elementPhones.value.toString();
+        if (elementContacts.phones!.isNotEmpty) {
+          String? phone;
+          for (var elementPhones in elementContacts.phones!) {
+            phone = elementPhones.value.toString();
+          }
+          if (elementContacts.displayName!.contains("PERMISSION")) {
+            continue;
+          }
+
+          list.add({
+            "name": elementContacts.displayName,
+            "number": phone,
+          });
         }
-        log("${elementContacts.phones} kio");
-        if (elementContacts.displayName!.contains("PERMISSION")) {
-          continue;
-        }
-        list.add({
-          "name": elementContacts.displayName,
-          "number": phone,
-        });
       }
-      log(Hive.box("boxToken").get("token"));
-      
+
       Api().saveContact(Hive.box("boxToken").get("token"), list);
-      /*    Api().saveContact(
-          "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIrOTk4OTAxNjMxNzE2IiwiaWF0IjoxNjc0OTc3NTQzLCJleHAiOjE2Nzc1Njk1NDN9.adj_L0ENG4laG_gSnE_LbpcXZgqXNd84vWBi6SgxUI8kiQtXzfj5QAo-92No2luZ9Cle0rq0cv55lJ2RazKA-A",
-          list); */
     }
   }
 

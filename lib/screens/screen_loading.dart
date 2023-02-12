@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:lottie/lottie.dart';
@@ -41,7 +39,7 @@ class _ScreenLoadingState extends State<ScreenLoading> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "REDPost",
+            "flinger",
             style: GoogleFonts.montserrat(
                 color: Colors.white, fontSize: 32, fontWeight: FontWeight.w500),
           ),

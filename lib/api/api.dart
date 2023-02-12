@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:my_contacts/models/model_finger.dart';
 import 'package:my_contacts/models/model_get_top_contacts.dart';
+import 'package:my_contacts/models/model_main_data.dart';
 
 class Api {
-  String host = "192.168.213.66:8080";
+  String host = "132.145.138.206:8080";
   Future<Map> register(String phone, String pasword, String firstname,
       String lastname, String bio, String picture) async {
     var request = http.MultipartRequest(
@@ -77,10 +79,10 @@ class Api {
       'Content-Type': 'application/json'
     };
     var request =
-        http.Request('POST', Uri.parse('http://$host/api/contacts/save'));
+        http.Request('POST', Uri.parse('http://$host/api/contacts/sync'));
 
     request.body = json.encode(str);
-    log(json.encode(str) + " 98");
+    log(json.encode(str));
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -134,7 +136,7 @@ class Api {
     }
   }
 
-  Future<ModelGetTopContactsList?> getTopContacts(String token) async {
+  /*  Future<ModelGetTopContactsList?> getTopContacts(String token) async {
     var headers = {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json'
@@ -148,6 +150,24 @@ class Api {
     if (response.statusCode == 200) {
       log("200 get top contacts");
       return ModelGetTopContactsList.fromMap(
+          jsonDecode(await response.stream.bytesToString()));
+    } else {
+      response.stream.bytesToString().then((value) {
+        log("$value get top contacts error");
+      });
+      return null;
+    }
+  } */
+
+  Future<ModelMainDataMain?> getMainData(String token) async {
+    var headers = {'Authorization': 'Bearer $token'};
+    var request = http.Request('GET', Uri.parse('http://$host/api/posts/full'));
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      log("200 get main data");
+
+      return ModelMainDataMain.fromMap(
           jsonDecode(await response.stream.bytesToString()));
     } else {
       response.stream.bytesToString().then((value) {
