@@ -102,6 +102,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                 },
                 cursorColor: const Color(0xFFB8B8B8),
                 decoration: InputDecoration(
+                  //8
                   hintText: "Phone number",
                   hintStyle: GoogleFonts.montserrat(
                       fontSize: 14,
